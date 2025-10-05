@@ -72,7 +72,6 @@ class AuthActivity : AppCompatActivity() {
         findViewById<com.google.android.gms.common.SignInButton>(R.id.btnGoogle).setOnClickListener { googleSignIn() }
         findViewById<Button>(R.id.btnRegister).setOnClickListener { emailRegister() }
         findViewById<Button>(R.id.btnLogin).setOnClickListener { emailLogin() }
-        findViewById<Button>(R.id.btnSendLink).setOnClickListener { sendEmailLink() }
 
         handleEmailLinkSignIn(intent)
     }
