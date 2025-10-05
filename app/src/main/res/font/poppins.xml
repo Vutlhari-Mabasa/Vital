@@ -3,7 +3,7 @@
     <font
         android:fontProviderAuthority="com.google.android.gms.fonts"
         android:fontProviderPackage="com.google.android.gms"
-        android:fontProviderQuery="name=Poppins&amp;weight=700"
+        android:fontProviderQuery="name=Poppins and weight=700"
         android:fontProviderCerts="@array/com_google_android_gms_fonts_certs" />
 </font-family>
 
