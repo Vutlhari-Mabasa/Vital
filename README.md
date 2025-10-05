@@ -6,24 +6,6 @@ Vital is a comprehensive fitness tracking app designed to help users monitor the
 
 ---
 
-## **Table of Contents**
-
-1. [Features](#features)
-2. [App Requirements](#app-requirements)
-3. [Installation](#installation)
-4. [Authentication](#authentication)
-5. [User Profile & Settings](#user-profile--settings)
-6. [Activity Tracking](#activity-tracking)
-7. [Health Tracking](#health-tracking)
-8. [Nutrition Tracking](#nutrition-tracking)
-9. [Goals & Progress](#goals--progress)
-10. [Gamification](#gamification)
-11. [Dashboard & Reports](#dashboard--reports)
-12. [System Architecture](#system-architecture)
-13. [Non-Functional Requirements](#non-functional-requirements)
-14. [Future Enhancements](#future-enhancements)
-
----
 
 ## **Features**
 
