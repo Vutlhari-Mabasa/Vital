@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "979112409577",
+    "project_id": "vital-fitness-80477",
+    "storage_bucket": "vital-fitness-80477.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979112409577:android:d75473bedbd692cfa0f378",
+        "android_client_info": {
+          "package_name": "com.example.vital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979112409577-9udcb2bs060acggh8hlmkpdv00oq4dp8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vital",
+            "certificate_hash": "511d8566886777df21dee561553cbe0564339239"
+          }
+        },
+        {
+          "client_id": "979112409577-5qicmj1gtd09e2ffph7n567u0tiao2i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyJXrVBvhR_dWR8JGOsMMh0wolUC4Zb0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979112409577-5qicmj1gtd09e2ffph7n567u0tiao2i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
