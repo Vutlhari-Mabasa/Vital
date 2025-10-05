@@ -28,17 +28,28 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var signInRequest: BeginSignInRequest
 
     private val googleLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-        val credential = Identity.getSignInClient(this).getSignInCredentialFromIntent(result.data)
-        val idToken = credential.googleIdToken
-        if (idToken != null) {
-            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-            auth.signInWithCredential(firebaseCredential).addOnCompleteListener { task ->
-                if (task.isSuccessful) onSignedIn(auth.currentUser) else toast("Google sign in failed")
+        try {
+            if (result.resultCode != RESULT_OK || result.data == null) {
+                toast("Google sign in canceled")
+                setLoading(false)
+                return@registerForActivityResult
             }
-        } else {
-            toast("Google sign in canceled")
+            val credential = Identity.getSignInClient(this).getSignInCredentialFromIntent(result.data)
+            val idToken = credential.googleIdToken
+            if (idToken != null) {
+                val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                auth.signInWithCredential(firebaseCredential).addOnCompleteListener { task ->
+                    setLoading(false)
+                    if (task.isSuccessful) onSignedIn(auth.currentUser) else toast("Google sign in failed")
+                }
+            } else {
+                setLoading(false)
+                toast("Google sign in canceled")
+            }
+        } catch (e: Exception) {
+            setLoading(false)
+            toast("Google sign in failed")
         }
-        setLoading(false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +69,7 @@ class AuthActivity : AppCompatActivity() {
             .setAutoSelectEnabled(false)
             .build()
 
-        findViewById<Button>(R.id.btnGoogle).setOnClickListener { googleSignIn() }
+        findViewById<com.google.android.gms.common.SignInButton>(R.id.btnGoogle).setOnClickListener { googleSignIn() }
         findViewById<Button>(R.id.btnRegister).setOnClickListener { emailRegister() }
         findViewById<Button>(R.id.btnLogin).setOnClickListener { emailLogin() }
         findViewById<Button>(R.id.btnSendLink).setOnClickListener { sendEmailLink() }
