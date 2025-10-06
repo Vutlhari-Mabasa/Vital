@@ -2,6 +2,7 @@ package com.example.vital
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -79,10 +80,22 @@ class MealsActivity : AppCompatActivity() {
     }
 
     private fun setupList() {
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, meals.map { it.line })
+        adapter = buildMealsAdapter()
         listView.adapter = adapter
         listView.setOnItemClickListener { _, _, position, _ ->
             showMealOptions(position)
+        }
+    }
+
+    private fun buildMealsAdapter(): ArrayAdapter<String> {
+        val items = meals.map { it.line }
+        return object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = super.getView(position, convertView, parent)
+                val tv = v.findViewById<TextView>(android.R.id.text1)
+                tv.setTextColor(resources.getColor(R.color.black))
+                return v
+            }
         }
     }
 
@@ -212,9 +225,7 @@ class MealsActivity : AppCompatActivity() {
     }
 
     private fun refreshAdapter() {
-        adapter.clear()
-        adapter.addAll(meals.map { it.line })
-        adapter.notifyDataSetChanged()
+        listView.adapter = buildMealsAdapter()
     }
 
     private fun showMealOptions(position: Int) {

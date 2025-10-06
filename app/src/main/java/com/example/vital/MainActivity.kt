@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
             Log.w("MainActivity", "Root view with id 'main' not found. Skipping insets.")
         }
 
-        // Redirect to AuthActivity if not logged in, otherwise go to ProfileActivity
+        // Redirect to AuthActivity if not logged in, otherwise go to HomeActivity
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, AuthActivity::class.java))
             finish()
         } else {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
     }

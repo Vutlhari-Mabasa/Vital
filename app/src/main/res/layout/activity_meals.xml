@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Food name"
+            android:textColor="@color/black"
             android:fontFamily="@font/alan_sans_regular"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="Calories"
             android:inputType="number"
+            android:textColor="@color/black"
             android:fontFamily="@font/alan_sans_regular"
             android:layout_marginTop="8dp"
             tools:ignore="TouchTargetSizeCheck" />
@@ -61,6 +63,7 @@
                 android:layout_weight="1"
                 android:hint="Carbs (g)"
                 android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 android:fontFamily="@font/alan_sans_regular"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -71,6 +74,7 @@
                 android:layout_weight="1"
                 android:hint="Protein (g)"
                 android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 android:fontFamily="@font/alan_sans_regular"
                 android:layout_marginStart="8dp"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -82,6 +86,7 @@
                 android:layout_weight="1"
                 android:hint="Fat (g)"
                 android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 android:fontFamily="@font/alan_sans_regular"
                 android:layout_marginStart="8dp"
                 tools:ignore="TouchTargetSizeCheck" />
