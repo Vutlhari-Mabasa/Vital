@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Meals"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/alan_sans_bold"
+        android:layout_marginBottom="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="@android:color/transparent">
+
+        <EditText
+            android:id="@+id/inputFoodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Food name"
+            android:fontFamily="@font/alan_sans_regular"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/inputCalories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Calories"
+            android:inputType="number"
+            android:fontFamily="@font/alan_sans_regular"
+            android:layout_marginTop="8dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/spinnerMealType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/inputCarbs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Carbs (g)"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/alan_sans_regular"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/inputProtein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Protein (g)"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/alan_sans_regular"
+                android:layout_marginStart="8dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/inputFat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Fat (g)"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/alan_sans_regular"
+                android:layout_marginStart="8dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddMeal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/white"
+            android:fontFamily="@font/alan_sans_regular"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/summaryCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/summary_card"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/textTotals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Totals: 0 kcal | C:0g P:0g F:0g"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alan_sans_regular" />
+
+        <TextView
+            android:id="@+id/textCaloriesBurned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Burned: 0 kcal"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alan_sans_regular"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:id="@+id/textNet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Net: 0 kcal"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alan_sans_regular"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listMeals"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:dividerHeight="8dp" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+</LinearLayout>
+
+

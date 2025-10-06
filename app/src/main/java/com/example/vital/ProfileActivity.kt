@@ -74,6 +74,18 @@ class ProfileActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnManageGoogleFit).setOnClickListener { manageGoogleFitPermissions() }
         findViewById<Button>(R.id.btnLogout).setOnClickListener { logout() }
         
+        // Navigate to Meals screen
+        val btnMeals = Button(this).apply {
+            text = "Meals"
+            setBackgroundColor(resources.getColor(R.color.orange))
+            setTextColor(resources.getColor(R.color.white))
+        }
+        val container = findViewById<LinearLayout>(R.id.container)
+        container.addView(btnMeals, container.childCount - 1)
+        btnMeals.setOnClickListener {
+            startActivity(Intent(this, MealsActivity::class.java))
+        }
+        
         googleFitSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 requestGoogleFitPermissions()
