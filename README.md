@@ -18,7 +18,7 @@ Vital is a comprehensive fitness tracking app designed to help users monitor the
 * Gamification with points, levels, badges, and streaks
 * Interactive dashboards and reports with historical data
 * Push notifications for reminders and achievements
-*eat me
+
 ---
 
 ## **App Requirements**
