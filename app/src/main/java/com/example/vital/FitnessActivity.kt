@@ -1,8 +1,11 @@
 package com.example.vital
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -10,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class FitnessActivity : AppCompatActivity() {
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fitness)
@@ -28,7 +32,7 @@ class FitnessActivity : AppCompatActivity() {
         webSettings2.javaScriptEnabled = true
         webSettings3.javaScriptEnabled = true
 
-        // Dummy YouTube fitness videos (replace with your own later)
+        // Dummy YouTube fitness videos replace with different ones if we want to
         val videoHtml1 = """<iframe width="100%" height="100%" 
             src="https://www.youtube.com/embed/UItWltVZZmE" 
             frameborder="0" allowfullscreen></iframe>"""
@@ -47,16 +51,15 @@ class FitnessActivity : AppCompatActivity() {
         video3.loadData(videoHtml3, "text/html", "utf-8")
 
         val whatsNewContainer = findViewById<LinearLayout>(R.id.hlWhatsNew)
-        val knowHowContainer = findViewById<LinearLayout>(R.id.hlKnowHows)
 
-        val sampleWorkouts = listOf(
+       /* val sampleWorkouts = listOf(
             Workout("EASY TABATA! ALL-IN-ONE UPPER BODY", "07:28", "LILLIUS", R.drawable.sample_workout),
             Workout("EASY TABATA! ARM & CHEST STRENGTH", "07:28", "LILLIUS", R.drawable.sample_workout2),
             Workout("FULL BODY KETTLEBELL WORKOUT", "08:15", "LILLIUS", R.drawable.sample_workout3)
-        )
+        )*/
 
-        populateWorkoutSection(whatsNewContainer, sampleWorkouts)
-        populateWorkoutSection(knowHowContainer, sampleWorkouts)
+       /* populateWorkoutSection(whatsNewContainer, sampleWorkouts)*/
+
 
         // Navigation setup
         findViewById<LinearLayout>(R.id.navHome).setOnClickListener {

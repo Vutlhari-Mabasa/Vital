@@ -48,7 +48,7 @@
                     android:textStyle="bold" />
 
                 <HorizontalScrollView
-                    android:layout_width="match_parent"
+                    android:layout_width="388dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:scrollbars="none">
@@ -58,6 +58,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
+
+
                 </HorizontalScrollView>
 
                 <WebView
@@ -141,14 +143,14 @@
                 android:layout_height="24dp"
                 android:src="@drawable/home_icon"
                 android:tint="@android:color/black"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription,UseAppTint" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home"
                 android:textColor="@android:color/black"
-                android:textSize="10sp"
+                android:textSize="16sp"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
@@ -167,14 +169,14 @@
                 android:layout_height="24dp"
                 android:src="@drawable/meal_icon"
                 android:tint="@android:color/black"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription,UseAppTint" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/meals"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Fitness -->
@@ -199,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fitnesss"
                 android:textColor="#FF000000"
-                android:textSize="10sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Profile -->
@@ -224,7 +226,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/profile"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-
