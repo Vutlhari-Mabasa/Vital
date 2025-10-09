@@ -52,4 +52,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.android.gms:play-services-fitness:21.2.0")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

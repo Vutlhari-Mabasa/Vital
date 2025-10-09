@@ -15,6 +15,11 @@ import com.google.android.gms.fitness.data.Field
 
 class HomeActivity : AppCompatActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+    }
+
     private lateinit var progress: ProgressBar
     private lateinit var textSteps: TextView
     private lateinit var textCalories: TextView
