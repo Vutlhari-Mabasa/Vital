@@ -1,231 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE6D1"
-    tools:context=".FitnessActivity">
+    android:background="@color/white">
 
-    <!-- Scrollable Content -->
-    <ScrollView
-        android:id="@+id/scrollViewFitness"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigation"
-        android:overScrollMode="never"
-        tools:ignore="UnknownId,UselessParent">
+        android:layout_above="@id/bottomNav"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="80dp">
+            android:text="Fitness"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:fontFamily="@font/alan_sans_bold"
+            android:layout_marginBottom="12dp" />
 
-            <!-- Title -->
-            <TextView
-                android:id="@+id/tvFitnessTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/fitness"
-                android:textColor="@android:color/black"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <!-- Section 1: What's New -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/what_s_new"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <HorizontalScrollView
-                    android:layout_width="388dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:id="@+id/hlWhatsNew"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-
-
-                </HorizontalScrollView>
-
-                <WebView
-                    android:id="@+id/youtubeVideo1"
-                    android:layout_width="320dp"
-                    android:layout_height="161dp"
-                    android:layout_marginBottom="16dp"
-                    tools:ignore="WebViewLayout" />
-
-                <WebView
-                    android:id="@+id/youtubeVideo2"
-                    android:layout_width="321dp"
-                    android:layout_height="162dp"
-                    android:layout_marginBottom="16dp"
-                    tools:ignore="WebViewLayout" />
-
-                <WebView
-                    android:id="@+id/youtubeVideo3"
-                    android:layout_width="321dp"
-                    android:layout_height="173dp"
-                    android:layout_marginBottom="16dp"
-                    tools:ignore="WebViewLayout" />
-            </LinearLayout>
-
-            <!-- Section 2: Workout Know-hows -->
-           <!-- <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/workout_know_hows_from_sports_stars"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:layout_marginTop="8dp">
-
-                    <LinearLayout
-                        android:id="@+id/hlKnowHows"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-                </HorizontalScrollView>
-            </LinearLayout> -->
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
-        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="#FF7A00"
-        android:weightSum="4"
-        android:gravity="center"
-        tools:ignore="DisableBaselineAlignment">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <!-- Home -->
-        <LinearLayout
-            android:id="@+id/navHome"
+        <Button
+            android:id="@+id/btnPilates"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+            android:text="Pilates"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/white" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/home_icon"
-                android:tint="@android:color/black"
-                tools:ignore="ContentDescription,UseAppTint" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                tools:ignore="SmallSp" />
-        </LinearLayout>
-
-        <!-- Meals -->
-        <LinearLayout
-            android:id="@+id/navMeals"
+        <Button
+            android:id="@+id/btnYoga"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+            android:layout_marginStart="8dp"
+            android:text="Yoga"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/white" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/meal_icon"
-                android:tint="@android:color/black"
-                tools:ignore="ContentDescription,UseAppTint" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/meals"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Fitness -->
-        <LinearLayout
-            android:id="@+id/navFitness"
+        <Button
+            android:id="@+id/btnHiit"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/fitness_icon"
-                android:tint="#FF000000"
-                tools:ignore="ContentDescription,UseAppTint" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fitnesss"
-                android:textColor="#FF000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Profile -->
-        <LinearLayout
-            android:id="@+id/navProfile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/profile_icon"
-                android:tint="@android:color/black"
-                tools:ignore="ContentDescription,UseAppTint" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
+            android:layout_marginStart="8dp"
+            android:text="HIIT"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/white" />
     </LinearLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_menu" />
+
+</RelativeLayout>

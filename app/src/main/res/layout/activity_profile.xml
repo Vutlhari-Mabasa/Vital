@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ProfileActivity">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,12 +20,10 @@
 
         <LinearLayout
             android:id="@+id/container"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -32,66 +37,62 @@
                 android:fontFamily="@font/alan_sans_bold"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Personal Information Section -->
-            <TextView
+            <EditText
+                android:id="@+id/nameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Personal Information"
+                android:hint="Name"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/alan_sans_bold"
-                android:layout_marginBottom="12dp" />
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
+                android:fontFamily="@font/alan_sans_regular" />
 
             <EditText
-                android:id="@+id/inputName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:hint="Full Name"
-                android:fontFamily="@font/alan_sans_regular"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <EditText
-                android:id="@+id/inputAge"
+                android:id="@+id/ageInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Age"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:fontFamily="@font/alan_sans_regular"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
                 android:layout_marginTop="12dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:fontFamily="@font/alan_sans_regular" />
 
             <Spinner
-                android:id="@+id/spinnerGender"
+                android:id="@+id/genderSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp" />
 
             <EditText
-                android:id="@+id/inputHeight"
+                android:id="@+id/heightInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Height (cm)"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:textColor="@color/black"
-                android:fontFamily="@font/alan_sans_regular"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
                 android:layout_marginTop="12dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:fontFamily="@font/alan_sans_regular" />
 
             <EditText
-                android:id="@+id/inputWeight"
+                android:id="@+id/weightInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Weight (kg)"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:textColor="@color/black"
-                android:fontFamily="@font/alan_sans_regular"
+                android:background="@android:drawable/edit_text"
+                android:padding="12dp"
                 android:layout_marginTop="12dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:fontFamily="@font/alan_sans_regular" />
 
             <Button
-                android:id="@+id/btnSaveProfile"
+                android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save Profile"
@@ -100,80 +101,70 @@
                 android:fontFamily="@font/alan_sans_regular"
                 android:layout_marginTop="16dp" />
 
-            <!-- Account Settings Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Account Settings"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/alan_sans_bold"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="12dp" />
-
             <Button
-                android:id="@+id/btnChangePassword"
+                android:id="@+id/changePasswordButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Change Password"
                 android:backgroundTint="@color/orange"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alan_sans_regular"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="12dp" />
 
             <Button
-                android:id="@+id/btnChangeEmail"
+                android:id="@+id/changeEmailButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Change Email"
                 android:backgroundTint="@color/orange"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alan_sans_regular"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="12dp" />
 
-            <!-- Google Fit Integration Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <Switch
+                    android:id="@+id/googleFitSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Google Fit Access"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/alan_sans_regular" />
+
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/googleFitStatusText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Google Fit Integration"
+                android:text="Status: Not connected"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/alan_sans_bold"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="12dp" />
-
-            <Switch
-                android:id="@+id/switchGoogleFit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enable Google Fit Data Access"
-                android:textColor="@color/black"
-                android:fontFamily="@font/alan_sans_regular"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/textGoogleFitStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Google Fit not connected"
-                android:textColor="@color/black"
-                android:textSize="14sp"
                 android:fontFamily="@font/alan_sans_regular"
                 android:layout_marginTop="8dp" />
 
             <Button
-                android:id="@+id/btnManageGoogleFit"
+                android:id="@+id/googleFitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Manage Google Fit Permissions"
+                android:text="Manage Google Fit"
                 android:backgroundTint="@color/orange"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alan_sans_regular"
                 android:layout_marginTop="8dp" />
 
-            <!-- Logout Section -->
             <Button
-                android:id="@+id/btnLogout"
+                android:id="@+id/logoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Logout"
@@ -195,3 +186,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNav"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>

@@ -13,15 +13,12 @@ import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.result.DailyTotalResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.content.Intent
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 class MealsActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-    }
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -68,6 +65,19 @@ class MealsActivity : AppCompatActivity() {
 
         loadMealsForToday()
         fetchCaloriesBurnedToday()
+        
+        // Setup bottom navigation
+        val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottom.selectedItemId = R.id.nav_meals
+        bottom.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> { startActivity(Intent(this, HomeActivity::class.java)); true }
+                R.id.nav_profile -> { startActivity(Intent(this, ProfileActivity::class.java)); true }
+                R.id.nav_meals -> true
+                R.id.nav_fitness -> { startActivity(Intent(this, FitnessActivity::class.java)); true }
+                else -> false
+            }
+        }
     }
 
     private fun initializeViews() {

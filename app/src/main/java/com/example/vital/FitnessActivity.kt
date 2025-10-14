@@ -1,92 +1,60 @@
 package com.example.vital
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FitnessActivity : AppCompatActivity() {
 
-    @SuppressLint("SetJavaScriptEnabled")
+    private lateinit var webView: WebView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fitness)
 
+        webView = findViewById(R.id.webView)
+        val settings: WebSettings = webView.settings
+        settings.javaScriptEnabled = true
+        settings.domStorageEnabled = true
 
-        val video1: WebView = findViewById(R.id.youtubeVideo1)
-        val video2: WebView = findViewById(R.id.youtubeVideo2)
-        val video3: WebView = findViewById(R.id.youtubeVideo3)
-
-        // Enable JavaScript for video playback
-        val webSettings1: WebSettings = video1.settings
-        val webSettings2: WebSettings = video2.settings
-        val webSettings3: WebSettings = video3.settings
-
-        webSettings1.javaScriptEnabled = true
-        webSettings2.javaScriptEnabled = true
-        webSettings3.javaScriptEnabled = true
-
-        // Dummy YouTube fitness videos replace with different ones if we want to
-        val videoHtml1 = """<iframe width="100%" height="100%" 
-            src="https://www.youtube.com/embed/UItWltVZZmE" 
-            frameborder="0" allowfullscreen></iframe>"""
-
-        val videoHtml2 = """<iframe width="100%" height="100%" 
-            src="https://www.youtube.com/embed/ml6cT4AZdqI" 
-            frameborder="0" allowfullscreen></iframe>"""
-
-        val videoHtml3 = """<iframe width="100%" height="100%" 
-            src="https://www.youtube.com/embed/UBMk30rjy0o" 
-            frameborder="0" allowfullscreen></iframe>"""
-
-        // Load the HTML for each video
-        video1.loadData(videoHtml1, "text/html", "utf-8")
-        video2.loadData(videoHtml2, "text/html", "utf-8")
-        video3.loadData(videoHtml3, "text/html", "utf-8")
-
-        val whatsNewContainer = findViewById<LinearLayout>(R.id.hlWhatsNew)
-
-       /* val sampleWorkouts = listOf(
-            Workout("EASY TABATA! ALL-IN-ONE UPPER BODY", "07:28", "LILLIUS", R.drawable.sample_workout),
-            Workout("EASY TABATA! ARM & CHEST STRENGTH", "07:28", "LILLIUS", R.drawable.sample_workout2),
-            Workout("FULL BODY KETTLEBELL WORKOUT", "08:15", "LILLIUS", R.drawable.sample_workout3)
-        )*/
-
-       /* populateWorkoutSection(whatsNewContainer, sampleWorkouts)*/
-
-
-        // Navigation setup
-        findViewById<LinearLayout>(R.id.navHome).setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+        findViewById<Button>(R.id.btnPilates).setOnClickListener {
+            loadYoutubePlaylist("PL8dDSKArO2-8qj5_7hU8wS23YV3G3k_B2")
+        }
+        findViewById<Button>(R.id.btnYoga).setOnClickListener {
+            loadYoutubePlaylist("PLui6Eyny-UzwxbWX1Lr4KZ0NSC1GAA86r")
+        }
+        findViewById<Button>(R.id.btnHiit).setOnClickListener {
+            loadYoutubePlaylist("PLDK8ZQfHC3F0G4mQUPe8QqXFz3vGN9VOG")
         }
 
-        findViewById<LinearLayout>(R.id.navMeals).setOnClickListener {
-            startActivity(Intent(this, MealsActivity::class.java))
+        // Setup bottom navigation
+        val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottom.selectedItemId = R.id.nav_fitness
+        bottom.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> { startActivity(android.content.Intent(this, HomeActivity::class.java)); true }
+                R.id.nav_profile -> { startActivity(android.content.Intent(this, ProfileActivity::class.java)); true }
+                R.id.nav_meals -> { startActivity(android.content.Intent(this, MealsActivity::class.java)); true }
+                R.id.nav_fitness -> true
+                else -> false
+            }
         }
 
-        findViewById<LinearLayout>(R.id.navProfile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-        }
+        // Default
+        loadYoutubePlaylist("PLui6Eyny-UzwxbWX1Lr4KZ0NSC1GAA86r")
     }
 
-    private fun populateWorkoutSection(container: LinearLayout, workouts: List<Workout>) {
-        workouts.forEach {
-            val card = LayoutInflater.from(this).inflate(R.layout.simple_card, container, false)
-            val img = card.findViewById<ImageView>(R.id.imgThumbnail)
-            val title = card.findViewById<TextView>(R.id.tvTitle)
-            val author = card.findViewById<TextView>(R.id.tvAuthor)
-
-            img.setImageResource(it.thumbnailResId)
-            title.text = it.title
-            author.text = it.author
-
-            container.addView(card)
-        }
+    private fun loadYoutubePlaylist(playlistId: String) {
+        val html = """
+            <html>
+            <body style='margin:0'>
+              <iframe width='100%' height='100%' src='https://www.youtube.com/embed/videoseries?list=$playlistId' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>
+            </body>
+            </html>
+        """.trimIndent()
+        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
     }
 }

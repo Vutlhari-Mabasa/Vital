@@ -13,13 +13,9 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-    }
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -52,18 +48,31 @@ class ProfileActivity : AppCompatActivity() {
         loadUserProfile()
         setupClickListeners()
         checkGoogleFitPermissions()
+        
+        // Setup bottom navigation
+        val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottom.selectedItemId = R.id.nav_profile
+        bottom.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> { startActivity(Intent(this, HomeActivity::class.java)); true }
+                R.id.nav_profile -> true
+                R.id.nav_meals -> { startActivity(Intent(this, MealsActivity::class.java)); true }
+                R.id.nav_fitness -> { startActivity(Intent(this, FitnessActivity::class.java)); true }
+                else -> false
+            }
+        }
     }
 
     private fun initializeViews() {
         progressBar = findViewById(R.id.progress)
-        nameInput = findViewById(R.id.inputName)
-        ageInput = findViewById(R.id.inputAge)
-        genderSpinner = findViewById(R.id.spinnerGender)
-        heightInput = findViewById(R.id.inputHeight)
-        weightInput = findViewById(R.id.inputWeight)
-        googleFitSwitch = findViewById(R.id.switchGoogleFit)
-        googleFitStatusText = findViewById(R.id.textGoogleFitStatus)
-        googleFitButton = findViewById(R.id.btnManageGoogleFit)
+        nameInput = findViewById(R.id.nameInput)
+        ageInput = findViewById(R.id.ageInput)
+        genderSpinner = findViewById(R.id.genderSpinner)
+        heightInput = findViewById(R.id.heightInput)
+        weightInput = findViewById(R.id.weightInput)
+        googleFitSwitch = findViewById(R.id.googleFitSwitch)
+        googleFitStatusText = findViewById(R.id.googleFitStatusText)
+        googleFitButton = findViewById(R.id.googleFitButton)
     }
 
     private fun setupGenderSpinner() {
@@ -87,11 +96,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        findViewById<Button>(R.id.btnSaveProfile).setOnClickListener { saveProfile() }
-        findViewById<Button>(R.id.btnChangePassword).setOnClickListener { showChangePasswordDialog() }
-        findViewById<Button>(R.id.btnChangeEmail).setOnClickListener { showChangeEmailDialog() }
-        findViewById<Button>(R.id.btnManageGoogleFit).setOnClickListener { manageGoogleFitPermissions() }
-        findViewById<Button>(R.id.btnLogout).setOnClickListener { logout() }
+        findViewById<Button>(R.id.saveButton).setOnClickListener { saveProfile() }
+        findViewById<Button>(R.id.changePasswordButton).setOnClickListener { showChangePasswordDialog() }
+        findViewById<Button>(R.id.changeEmailButton).setOnClickListener { showChangeEmailDialog() }
+        findViewById<Button>(R.id.googleFitButton).setOnClickListener { manageGoogleFitPermissions() }
+        findViewById<Button>(R.id.logoutButton).setOnClickListener { logout() }
         
         // Navigate to Meals screen
         val btnMeals = Button(this).apply {

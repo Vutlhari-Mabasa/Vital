@@ -4,12 +4,10 @@
         979112409577-5qicmj1gtd09e2ffph7n567u0tiao2i6.apps.googleusercontent.com
     </string>
     <string name="fitness">Fitness</string>
-    <string name="what_s_new">What\'s new</string>
-    <string name="workout_know_hows_from_sports_stars">Workout Know-hows from Sports Stars</string>
     <string name="home">Home</string>
     <string name="meals">Meals</string>
-    <string name="fitnesss">Fitness</string>
     <string name="profile">Profile</string>
     <string name="workout_title">Workout Title</string>
     <string name="lillius">LILLIUS</string>
+    <string name="what_s_new">What\'s new</string>
 </resources>

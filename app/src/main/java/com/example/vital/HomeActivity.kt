@@ -12,13 +12,9 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-    }
 
     private lateinit var progress: ProgressBar
     private lateinit var textSteps: TextView
@@ -51,6 +47,18 @@ class HomeActivity : AppCompatActivity() {
         }
 
         fetchTodayMetrics()
+
+        val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottom.selectedItemId = R.id.nav_home
+        bottom.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> true
+                R.id.nav_profile -> { startActivity(Intent(this, ProfileActivity::class.java)); true }
+                R.id.nav_meals -> { startActivity(Intent(this, MealsActivity::class.java)); true }
+                R.id.nav_fitness -> { startActivity(Intent(this, FitnessActivity::class.java)); true }
+                else -> false
+            }
+        }
     }
 
     private fun fetchTodayMetrics() {
@@ -106,6 +114,3 @@ class HomeActivity : AppCompatActivity() {
         progress.visibility = if (loading) View.VISIBLE else View.INVISIBLE
     }
 }
-
-
-
