@@ -20,9 +20,11 @@ import java.util.concurrent.TimeUnit
 
 class MealsActivity : AppCompatActivity() {
 
+    // Firebase and Google Fit setup
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
+    // UI components
     private lateinit var foodName: EditText
     private lateinit var calories: EditText
     private lateinit var carbs: EditText
@@ -36,16 +38,19 @@ class MealsActivity : AppCompatActivity() {
     private lateinit var netText: TextView
     private lateinit var progress: ProgressBar
 
+    // Data model for meals
     private data class MealItem(val id: String, val line: String, val kcal: Int, val c: Double, val p: Double, val f: Double)
     private val meals = mutableListOf<MealItem>()
     private lateinit var adapter: ArrayAdapter<String>
 
+    // Nutrient totals
     private var totalCalories = 0
     private var totalCarbs = 0.0
     private var totalProtein = 0.0
     private var totalFat = 0.0
     private var caloriesBurned = 0.0
 
+    // Google Fit permissions
     private val fitnessOptions = FitnessOptions.builder()
         .addDataType(DataType.AGGREGATE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
         .addDataType(DataType.TYPE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
@@ -55,17 +60,20 @@ class MealsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meals)
 
+        // Initialize Firebase
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        // Setup UI and listeners
         initializeViews()
         setupList()
         setupListeners()
         setupMealType()
 
+        // Load meal data and burned calories
         loadMealsForToday()
         fetchCaloriesBurnedToday()
-        
+
         // Setup bottom navigation
         val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
         bottom.selectedItemId = R.id.nav_meals
@@ -80,6 +88,7 @@ class MealsActivity : AppCompatActivity() {
         }
     }
 
+    // Initialize all UI elements
     private fun initializeViews() {
         foodName = findViewById(R.id.inputFoodName)
         calories = findViewById(R.id.inputCalories)
@@ -94,6 +103,7 @@ class MealsActivity : AppCompatActivity() {
         progress = findViewById(R.id.progress)
     }
 
+    // Setup the list adapter and click listeners
     private fun setupList() {
         adapter = buildMealsAdapter()
         listView.adapter = adapter
@@ -102,6 +112,7 @@ class MealsActivity : AppCompatActivity() {
         }
     }
 
+    // Build adapter to display meal items in the list
     private fun buildMealsAdapter(): ArrayAdapter<String> {
         val items = meals.map { it.line }
         return object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items) {
@@ -114,10 +125,12 @@ class MealsActivity : AppCompatActivity() {
         }
     }
 
+    // Setup add button click listener
     private fun setupListeners() {
         addButton.setOnClickListener { addMeal() }
     }
 
+    // Setup meal type dropdown (spinner)
     private fun setupMealType() {
         val types = arrayOf("Breakfast", "Lunch", "Dinner", "Snack")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, types)
@@ -126,6 +139,7 @@ class MealsActivity : AppCompatActivity() {
         mealTypeSpinner.adapter = adapter
     }
 
+    // Add new meal to Firestore and update UI
     private fun addMeal() {
         val name = foodName.text.toString().trim()
         val kcal = calories.text.toString().toIntOrNull() ?: 0
@@ -152,6 +166,7 @@ class MealsActivity : AppCompatActivity() {
             "fats" to f
         )
 
+        // Add meal to Firestore
         firestore.collection("users").document(user.uid)
             .collection("nutrition")
             .add(meal)
@@ -172,6 +187,7 @@ class MealsActivity : AppCompatActivity() {
             }
     }
 
+    // Load today's meals from Firestore
     private fun loadMealsForToday() {
         setLoading(true)
         val user = auth.currentUser ?: return
@@ -209,6 +225,7 @@ class MealsActivity : AppCompatActivity() {
             }
     }
 
+    // Get calories burned today from Google Fit
     private fun fetchCaloriesBurnedToday() {
         val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
         if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
@@ -233,16 +250,19 @@ class MealsActivity : AppCompatActivity() {
             }
     }
 
+    // Update totals and display them
     private fun updateTotals() {
         totalsText.text = "Totals: ${totalCalories} kcal | C:${format(totalCarbs)}g P:${format(totalProtein)}g F:${format(totalFat)}g"
         val net = totalCalories - caloriesBurned
         netText.text = "Net: ${net.toInt()} kcal"
     }
 
+    // Refresh list adapter after data changes
     private fun refreshAdapter() {
         listView.adapter = buildMealsAdapter()
     }
 
+    // Show edit/delete options for meal item
     private fun showMealOptions(position: Int) {
         val item = meals[position]
         val options = arrayOf("Edit", "Delete")
@@ -256,6 +276,7 @@ class MealsActivity : AppCompatActivity() {
             .show()
     }
 
+    // Display edit dialog for selected meal
     private fun editMeal(position: Int) {
         val item = meals[position]
         val parts = item.line
@@ -289,6 +310,7 @@ class MealsActivity : AppCompatActivity() {
             .show()
     }
 
+    // Update meal entry in Firestore and totals
     private fun updateMeal(position: Int, name: String, kcal: Int, c: Double, p: Double, f: Double) {
         val user = auth.currentUser ?: return
         val id = meals[position].id
@@ -303,7 +325,7 @@ class MealsActivity : AppCompatActivity() {
                 "fats" to f
             ))
             .addOnSuccessListener {
-                // adjust totals: remove old and add new
+                // Update local totals and UI
                 totalCalories += (kcal - meals[position].kcal)
                 totalCarbs += (c - meals[position].c)
                 totalProtein += (p - meals[position].p)
@@ -319,6 +341,7 @@ class MealsActivity : AppCompatActivity() {
             }
     }
 
+    // Delete meal entry from Firestore
     private fun deleteMeal(position: Int) {
         val user = auth.currentUser ?: return
         val id = meals[position].id
@@ -327,7 +350,7 @@ class MealsActivity : AppCompatActivity() {
             .collection("nutrition").document(id)
             .delete()
             .addOnSuccessListener {
-                // adjust totals
+                // Adjust totals after deletion
                 totalCalories -= meals[position].kcal
                 totalCarbs -= meals[position].c
                 totalProtein -= meals[position].p
@@ -343,6 +366,7 @@ class MealsActivity : AppCompatActivity() {
             }
     }
 
+    // Clear input fields after adding meal
     private fun clearInputs() {
         foodName.text.clear()
         calories.text.clear()
@@ -351,6 +375,7 @@ class MealsActivity : AppCompatActivity() {
         fat.text.clear()
     }
 
+    // Generate today's date as key (e.g., 2025-10-14)
     private fun getTodayKey(): String {
         val cal = Calendar.getInstance()
         val y = cal.get(Calendar.YEAR)
@@ -359,13 +384,14 @@ class MealsActivity : AppCompatActivity() {
         return String.format("%04d-%02d-%02d", y, m, d)
     }
 
+    // Show or hide loading spinner
     private fun setLoading(loading: Boolean) {
         progress.visibility = if (loading) View.VISIBLE else View.INVISIBLE
     }
 
+    // Format double values (no decimals)
     private fun format(value: Double): String = String.format("%.0f", value)
 
+    // Display a short message to user
     private fun toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
-
-
