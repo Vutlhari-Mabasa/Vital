@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Vital</string>
+    <string name="default_web_client_id">
+        979112409577-5qicmj1gtd09e2ffph7n567u0tiao2i6.apps.googleusercontent.com
+    </string>
+    <string name="fitness">Ukuba Namandla</string>
+    <string name="home">Ikhaya</string>
+    <string name="meals">Ukudla</string>
+    <string name="profile">Iphrofayili</string>
+    <string name="workout_title">Isihloko Sokuzivocavoca</string>
+    <string name="lillius">LILLIUS</string>
+    <string name="what_s_new">Okusha</string>
+    <string name="change_language">Shintsha Ulimi</string>
+    <string name="select_language">Khetha Ulimi</string>
+    <string name="language_english">IsiNgisi</string>
+    <string name="language_afrikaans">IsiBhulu</string>
+    <string name="language_zulu">IsiZulu</string>
+    <string name="steps">Izinyathelo</string>
+    <string name="steps_connect">Izinyathelo: xhuma i-Google Fit</string>
+    <string name="steps_unavailable">Izinyathelo: ayitholakali</string>
+    <string name="steps_format">Izinyathelo: %1$d</string>
+    <string name="calories_burned">Amakhaluphisi ashisiwe</string>
+    <string name="calories_burned_connect">Amakhaluphisi ashisiwe: xhuma i-Google Fit</string>
+    <string name="calories_burned_unavailable">Amakhaluphisi ashisiwe: ayitholakali</string>
+    <string name="calories_burned_format">Amakhaluphisi ashisiwe: %1$d kcal</string>
+    <string name="distance">Ibanga</string>
+    <string name="distance_connect">Ibanga: xhuma i-Google Fit</string>
+    <string name="distance_unavailable">Ibanga: ayitholakali</string>
+    <string name="distance_format">Ibanga: %1$.2f km</string>
+    <string name="active_minutes">Amaminithi asebenzayo</string>
+    <string name="active_minutes_connect">Amaminithi asebenzayo: xhuma i-Google Fit</string>
+    <string name="active_minutes_unavailable">Amaminithi asebenzayo: ayitholakali</string>
+    <string name="active_minutes_format">Amaminithi asebenzayo: %1$d</string>
+    <string name="burned">Kushisiwe</string>
+    <string name="burned_connect">Kushisiwe: xhuma i-Google Fit</string>
+    <string name="burned_unavailable">Kushisiwe: ayitholakali</string>
+    <string name="burned_format">Kushisiwe: %1$d kcal</string>
+    <string name="totals">Izinani</string>
+    <string name="totals_format">Izinani: %1$d kcal | K:%2$.0fg P:%3$.0fg F:%4$.0fg</string>
+    <string name="net">Inethi</string>
+    <string name="net_format">Inethi: %1$d kcal</string>
+    <string name="food">Ukudla</string>
+    <string name="calories">Amakhaluphisi</string>
+    <string name="carbs">Ama-carbohydrate</string>
+    <string name="protein">I-protein</string>
+    <string name="fat">Amafutha</string>
+    <string name="google_fit_connected">I-Google Fit ixhunywe</string>
+    <string name="google_fit_not_connected">I-Google Fit ayixhunyiwe</string>
+    <string name="manage_google_fit_permissions">Phatha Izimvume Ze-Google Fit</string>
+    <string name="connect_google_fit">Xhuma I-Google Fit</string>
+    <string name="breakfast">Isidlo Sasekuseni</string>
+    <string name="lunch">Isidlo Sasemini</string>
+    <string name="dinner">Isidlo Sasebusuku</string>
+    <string name="snack">Isidlo Esincane</string>
+    <string name="meal">Isidlo</string>
+</resources>
+

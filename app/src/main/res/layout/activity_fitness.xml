@@ -30,31 +30,43 @@
         <Button
             android:id="@+id/btnPilates"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:text="Pilates"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/white" />
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/alan_sans_regular"
+            android:letterSpacing="0.02"
+            android:elevation="2dp" />
 
         <Button
             android:id="@+id/btnYoga"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="Yoga"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/white" />
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/alan_sans_regular"
+            android:letterSpacing="0.02"
+            android:elevation="2dp" />
 
         <Button
             android:id="@+id/btnHiit"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="HIIT"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/white" />
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/alan_sans_regular"
+            android:letterSpacing="0.02"
+            android:elevation="2dp" />
     </LinearLayout>
 
     <WebView
