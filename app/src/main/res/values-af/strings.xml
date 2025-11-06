@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Vital</string>
+    <string name="default_web_client_id">
+        979112409577-5qicmj1gtd09e2ffph7n567u0tiao2i6.apps.googleusercontent.com
+    </string>
+    <string name="fitness">Fiksheid</string>
+    <string name="home">Tuis</string>
+    <string name="meals">Maaltye</string>
+    <string name="profile">Profiel</string>
+    <string name="workout_title">Oefening Titel</string>
+    <string name="lillius">LILLIUS</string>
+    <string name="what_s_new">Wat is nuut</string>
+    <string name="change_language">Verander Taal</string>
+    <string name="select_language">Kies Taal</string>
+    <string name="language_english">Engels</string>
+    <string name="language_afrikaans">Afrikaans</string>
+    <string name="language_zulu">Zoeloe</string>
+    <string name="steps">Stappe</string>
+    <string name="steps_connect">Stappe: koppel Google Fit</string>
+    <string name="steps_unavailable">Stappe: nie beskikbaar nie</string>
+    <string name="steps_format">Stappe: %1$d</string>
+    <string name="calories_burned">Kalorieë verbrand</string>
+    <string name="calories_burned_connect">Kalorieë verbrand: koppel Google Fit</string>
+    <string name="calories_burned_unavailable">Kalorieë verbrand: nie beskikbaar nie</string>
+    <string name="calories_burned_format">Kalorieë verbrand: %1$d kcal</string>
+    <string name="distance">Afstand</string>
+    <string name="distance_connect">Afstand: koppel Google Fit</string>
+    <string name="distance_unavailable">Afstand: nie beskikbaar nie</string>
+    <string name="distance_format">Afstand: %1$.2f km</string>
+    <string name="active_minutes">Aktiewe minute</string>
+    <string name="active_minutes_connect">Aktiewe minute: koppel Google Fit</string>
+    <string name="active_minutes_unavailable">Aktiewe minute: nie beskikbaar nie</string>
+    <string name="active_minutes_format">Aktiewe minute: %1$d</string>
+    <string name="burned">Verbrand</string>
+    <string name="burned_connect">Verbrand: koppel Google Fit</string>
+    <string name="burned_unavailable">Verbrand: nie beskikbaar nie</string>
+    <string name="burned_format">Verbrand: %1$d kcal</string>
+    <string name="totals">Totale</string>
+    <string name="totals_format">Totale: %1$d kcal | K:%2$.0fg P:%3$.0fg V:%4$.0fg</string>
+    <string name="net">Netto</string>
+    <string name="net_format">Netto: %1$d kcal</string>
+    <string name="food">Kos</string>
+    <string name="calories">Kalorieë</string>
+    <string name="carbs">Koolhidrate</string>
+    <string name="protein">Proteïen</string>
+    <string name="fat">Vet</string>
+    <string name="google_fit_connected">Google Fit gekoppel</string>
+    <string name="google_fit_not_connected">Google Fit nie gekoppel nie</string>
+    <string name="manage_google_fit_permissions">Bestuur Google Fit Toestemmings</string>
+    <string name="connect_google_fit">Koppel Google Fit</string>
+    <string name="breakfast">Ontbyt</string>
+    <string name="lunch">Middagete</string>
+    <string name="dinner">Aandete</string>
+    <string name="snack">Versnapering</string>
+    <string name="meal">Maaltyd</string>
+</resources>
+
