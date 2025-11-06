@@ -3,35 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F5F5F5">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNav"
-        android:padding="16dp">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
+            <!-- Header -->
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today"
                 android:textColor="@color/black"
-                android:textSize="28sp"
+                android:textSize="32sp"
                 android:fontFamily="@font/alan_sans_bold"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="24dp" />
 
+            <!-- Metrics Grid -->
             <LinearLayout
-                android:id="@+id/summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/summary_card">
+                android:background="@drawable/card_background"
+                android:padding="20dp"
+                android:elevation="2dp">
 
                 <TextView
                     android:id="@+id/textSteps"
@@ -39,7 +43,15 @@
                     android:layout_height="wrap_content"
                     android:text="Steps: 0"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/alan_sans_regular" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/alan_sans_regular"
+                    android:layout_marginBottom="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginBottom="12dp" />
 
                 <TextView
                     android:id="@+id/textCalories"
@@ -47,8 +59,15 @@
                     android:layout_height="wrap_content"
                     android:text="Calories burned: 0 kcal"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:fontFamily="@font/alan_sans_regular"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginBottom="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginBottom="12dp" />
 
                 <TextView
                     android:id="@+id/textDistance"
@@ -56,8 +75,15 @@
                     android:layout_height="wrap_content"
                     android:text="Distance: 0 km"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:fontFamily="@font/alan_sans_regular"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginBottom="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginBottom="12dp" />
 
                 <TextView
                     android:id="@+id/textActiveMinutes"
@@ -65,34 +91,41 @@
                     android:layout_height="wrap_content"
                     android:text="Active minutes: 0"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/alan_sans_regular"
-                    android:layout_marginTop="2dp" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/alan_sans_regular" />
             </LinearLayout>
 
+            <!-- Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="24dp">
 
                 <Button
                     android:id="@+id/btnGoMeals"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Meals"
-                    android:backgroundTint="@color/orange"
+                    android:layout_height="56dp"
+                    android:text="@string/meals"
+                    android:background="@drawable/button_primary"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/alan_sans_regular" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/alan_sans_regular"
+                    android:letterSpacing="0.02"
+                    android:elevation="2dp" />
 
                 <Button
                     android:id="@+id/btnGoProfile"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    android:backgroundTint="@color/orange"
+                    android:layout_height="56dp"
+                    android:text="@string/profile"
+                    android:background="@drawable/button_primary"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:fontFamily="@font/alan_sans_regular"
-                    android:layout_marginTop="8dp" />
+                    android:letterSpacing="0.02"
+                    android:layout_marginTop="12dp"
+                    android:elevation="2dp" />
             </LinearLayout>
 
             <ProgressBar
@@ -101,11 +134,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:visibility="invisible" />
 
         </LinearLayout>
-
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -113,6 +145,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="8dp"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

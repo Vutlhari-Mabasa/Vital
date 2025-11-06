@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
@@ -18,7 +17,7 @@ import android.content.Intent
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
-class MealsActivity : AppCompatActivity() {
+class MealsActivity : BaseActivity() {
 
     // Firebase and Google Fit setup
     private lateinit var auth: FirebaseAuth
@@ -120,6 +119,11 @@ class MealsActivity : AppCompatActivity() {
                 val v = super.getView(position, convertView, parent)
                 val tv = v.findViewById<TextView>(android.R.id.text1)
                 tv.setTextColor(resources.getColor(R.color.black))
+                tv.textSize = 14f
+                tv.setPadding(16, 16, 16, 16)
+                tv.typeface = resources.getFont(R.font.alan_sans_regular)
+                v.setBackgroundResource(R.drawable.card_background)
+                v.setPadding(16, 16, 16, 16)
                 return v
             }
         }
@@ -132,7 +136,12 @@ class MealsActivity : AppCompatActivity() {
 
     // Setup meal type dropdown (spinner)
     private fun setupMealType() {
-        val types = arrayOf("Breakfast", "Lunch", "Dinner", "Snack")
+        val types = arrayOf(
+            getString(R.string.breakfast),
+            getString(R.string.lunch),
+            getString(R.string.dinner),
+            getString(R.string.snack)
+        )
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         mealTypeSpinner = findViewById(R.id.spinnerMealType)
@@ -146,7 +155,7 @@ class MealsActivity : AppCompatActivity() {
         val c = carbs.text.toString().toDoubleOrNull() ?: 0.0
         val p = protein.text.toString().toDoubleOrNull() ?: 0.0
         val f = fat.text.toString().toDoubleOrNull() ?: 0.0
-        val mealType = mealTypeSpinner.selectedItem?.toString() ?: "Meal"
+        val mealType = mealTypeSpinner.selectedItem?.toString() ?: getString(R.string.meal)
 
         if (name.isEmpty() || kcal <= 0) {
             toast("Enter food name and calories")
@@ -208,7 +217,7 @@ class MealsActivity : AppCompatActivity() {
                     val c = doc.getDouble("carbs") ?: 0.0
                     val p = doc.getDouble("protein") ?: 0.0
                     val f = (doc.getDouble("fats") ?: doc.getDouble("fat") ?: 0.0)
-                    val mt = doc.getString("mealType") ?: "Meal"
+                    val mt = doc.getString("mealType") ?: getString(R.string.meal)
                     meals.add(MealItem(doc.id, "$mt • $name - ${kcal}kcal  C:${c}g P:${p}g F:${f}g", kcal, c, p, f))
                     totalCalories += kcal
                     totalCarbs += c
@@ -229,7 +238,7 @@ class MealsActivity : AppCompatActivity() {
     private fun fetchCaloriesBurnedToday() {
         val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
         if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-            burnedText.text = "Burned: connect Google Fit"
+            burnedText.text = getString(R.string.burned_connect)
             updateTotals()
             return
         }
@@ -241,20 +250,20 @@ class MealsActivity : AppCompatActivity() {
                     result.dataPoints.first().getValue(Field.FIELD_CALORIES).asFloat().toDouble()
                 } else 0.0
                 caloriesBurned = total
-                burnedText.text = "Burned: ${total.toInt()} kcal"
+                burnedText.text = getString(R.string.burned_format, total.toInt())
                 updateTotals()
             }
             .addOnFailureListener {
-                burnedText.text = "Burned: unavailable"
+                burnedText.text = getString(R.string.burned_unavailable)
                 updateTotals()
             }
     }
 
     // Update totals and display them
     private fun updateTotals() {
-        totalsText.text = "Totals: ${totalCalories} kcal | C:${format(totalCarbs)}g P:${format(totalProtein)}g F:${format(totalFat)}g"
+        totalsText.text = getString(R.string.totals_format, totalCalories, totalCarbs, totalProtein, totalFat)
         val net = totalCalories - caloriesBurned
-        netText.text = "Net: ${net.toInt()} kcal"
+        netText.text = getString(R.string.net_format, net.toInt())
     }
 
     // Refresh list adapter after data changes
@@ -285,11 +294,11 @@ class MealsActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             setPadding(50, 20, 50, 20)
         }
-        val nameInput = EditText(this).apply { hint = "Food" }
-        val kcalInput = EditText(this).apply { hint = "Calories"; inputType = android.text.InputType.TYPE_CLASS_NUMBER }
-        val carbsInput = EditText(this).apply { hint = "Carbs"; inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
-        val proteinInput = EditText(this).apply { hint = "Protein"; inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
-        val fatInput = EditText(this).apply { hint = "Fat"; inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
+        val nameInput = EditText(this).apply { hint = getString(R.string.food) }
+        val kcalInput = EditText(this).apply { hint = getString(R.string.calories); inputType = android.text.InputType.TYPE_CLASS_NUMBER }
+        val carbsInput = EditText(this).apply { hint = getString(R.string.carbs); inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
+        val proteinInput = EditText(this).apply { hint = getString(R.string.protein); inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
+        val fatInput = EditText(this).apply { hint = getString(R.string.fat); inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL }
         layout.addView(nameInput)
         layout.addView(kcalInput)
         layout.addView(carbsInput)

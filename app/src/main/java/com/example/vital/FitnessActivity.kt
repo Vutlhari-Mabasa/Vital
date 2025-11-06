@@ -3,11 +3,10 @@ package com.example.vital
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class FitnessActivity : AppCompatActivity() {
+class FitnessActivity : BaseActivity() {
 
     // Declare WebView variable
     private lateinit var webView: WebView

@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
@@ -14,7 +13,7 @@ import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     // UI components for displaying progress and fitness data
     private lateinit var progress: ProgressBar
@@ -75,10 +74,10 @@ class HomeActivity : AppCompatActivity() {
 
         // Check if app has permission to access Google Fit data
         if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-            textSteps.text = "Steps: connect Google Fit"
-            textCalories.text = "Calories burned: connect Google Fit"
-            textDistance.text = "Distance: connect Google Fit"
-            textActiveMinutes.text = "Active minutes: connect Google Fit"
+            textSteps.text = getString(R.string.steps_connect)
+            textCalories.text = getString(R.string.calories_burned_connect)
+            textDistance.text = getString(R.string.distance_connect)
+            textActiveMinutes.text = getString(R.string.active_minutes_connect)
             return
         }
 
@@ -89,18 +88,18 @@ class HomeActivity : AppCompatActivity() {
             .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
             .addOnSuccessListener { result ->
                 val steps = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_STEPS).asInt() else 0
-                textSteps.text = "Steps: $steps"
+                textSteps.text = getString(R.string.steps_format, steps)
             }
-            .addOnFailureListener { textSteps.text = "Steps: unavailable" }
+            .addOnFailureListener { textSteps.text = getString(R.string.steps_unavailable) }
 
         // Retrieve daily calories burned
         Fitness.getHistoryClient(this, account)
             .readDailyTotal(DataType.TYPE_CALORIES_EXPENDED)
             .addOnSuccessListener { result ->
                 val kcal = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_CALORIES).asFloat().toInt() else 0
-                textCalories.text = "Calories burned: $kcal kcal"
+                textCalories.text = getString(R.string.calories_burned_format, kcal)
             }
-            .addOnFailureListener { textCalories.text = "Calories burned: unavailable" }
+            .addOnFailureListener { textCalories.text = getString(R.string.calories_burned_unavailable) }
 
         // Retrieve daily distance covered
         Fitness.getHistoryClient(this, account)
@@ -108,20 +107,20 @@ class HomeActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val meters = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_DISTANCE).asFloat() else 0f
                 val km = meters / 1000f
-                textDistance.text = "Distance: ${String.format("%.2f", km)} km"
+                textDistance.text = getString(R.string.distance_format, km)
             }
-            .addOnFailureListener { textDistance.text = "Distance: unavailable" }
+            .addOnFailureListener { textDistance.text = getString(R.string.distance_unavailable) }
 
         // Retrieve daily active minutes
         Fitness.getHistoryClient(this, account)
             .readDailyTotal(DataType.TYPE_MOVE_MINUTES)
             .addOnSuccessListener { result ->
                 val minutes = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_DURATION).asInt() else 0
-                textActiveMinutes.text = "Active minutes: $minutes"
+                textActiveMinutes.text = getString(R.string.active_minutes_format, minutes)
                 setLoading(false)
             }
             .addOnFailureListener {
-                textActiveMinutes.text = "Active minutes: unavailable"
+                textActiveMinutes.text = getString(R.string.active_minutes_unavailable)
                 setLoading(false)
             }
     }

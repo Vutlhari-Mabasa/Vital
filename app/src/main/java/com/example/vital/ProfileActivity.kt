@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
@@ -15,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : BaseActivity() {
 
     // Firebase authentication and Firestore instances
     private lateinit var auth: FirebaseAuth
@@ -107,20 +106,12 @@ class ProfileActivity : AppCompatActivity() {
         findViewById<Button>(R.id.saveButton).setOnClickListener { saveProfile() }
         findViewById<Button>(R.id.changePasswordButton).setOnClickListener { showChangePasswordDialog() }
         findViewById<Button>(R.id.changeEmailButton).setOnClickListener { showChangeEmailDialog() }
-        findViewById<Button>(R.id.googleFitButton).setOnClickListener { manageGoogleFitPermissions() }
-        findViewById<Button>(R.id.logoutButton).setOnClickListener { logout() }
-
-        // Dynamically add a Meals button
-        val btnMeals = Button(this).apply {
-            text = "Meals"
-            setBackgroundColor(resources.getColor(R.color.orange))
-            setTextColor(resources.getColor(R.color.white))
-        }
-        val container = findViewById<LinearLayout>(R.id.container)
-        container.addView(btnMeals, container.childCount - 1)
-        btnMeals.setOnClickListener {
+        findViewById<Button>(R.id.changeLanguageButton).setOnClickListener { showLanguageSelectionDialog() }
+        findViewById<Button>(R.id.btnGoMeals).setOnClickListener { 
             startActivity(Intent(this, MealsActivity::class.java))
         }
+        findViewById<Button>(R.id.googleFitButton).setOnClickListener { manageGoogleFitPermissions() }
+        findViewById<Button>(R.id.logoutButton).setOnClickListener { logout() }
 
         // Handle Google Fit toggle switch
         googleFitSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -348,11 +339,11 @@ class ProfileActivity : AppCompatActivity() {
     // Update Google Fit connection status text and button
     private fun updateGoogleFitStatus(hasPermissions: Boolean) {
         if (hasPermissions) {
-            googleFitStatusText.text = "Google Fit connected"
-            googleFitButton.text = "Manage Google Fit Permissions"
+            googleFitStatusText.text = getString(R.string.google_fit_connected)
+            googleFitButton.text = getString(R.string.manage_google_fit_permissions)
         } else {
-            googleFitStatusText.text = "Google Fit not connected"
-            googleFitButton.text = "Connect Google Fit"
+            googleFitStatusText.text = getString(R.string.google_fit_not_connected)
+            googleFitButton.text = getString(R.string.connect_google_fit)
         }
     }
 
@@ -428,6 +419,43 @@ class ProfileActivity : AppCompatActivity() {
     // Show or hide loading indicator
     private fun setLoading(loading: Boolean) {
         progressBar.visibility = if (loading) View.VISIBLE else View.INVISIBLE
+    }
+
+    // Show language selection dialog
+    private fun showLanguageSelectionDialog() {
+        val languages = arrayOf(
+            getString(R.string.language_english),
+            getString(R.string.language_afrikaans),
+            getString(R.string.language_zulu)
+        )
+        
+        val currentLanguage = LocaleHelper.getSavedLanguage(this)
+        val currentIndex = when (currentLanguage) {
+            "af" -> 1
+            "zu" -> 2
+            else -> 0
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.select_language))
+            .setSingleChoiceItems(languages, currentIndex) { dialog, which ->
+                val selectedLanguage = when (which) {
+                    1 -> "af" // Afrikaans
+                    2 -> "zu" // Zulu
+                    else -> "en" // English
+                }
+                changeLanguage(selectedLanguage)
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(android.R.string.cancel), null)
+            .show()
+    }
+
+    // Change app language
+    private fun changeLanguage(languageCode: String) {
+        LocaleHelper.saveLanguage(this, languageCode)
+        // Recreate activity to apply language change app-wide
+        recreate()
     }
 
     // Display toast message helper
