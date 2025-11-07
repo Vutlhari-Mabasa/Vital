@@ -1,132 +1,60 @@
-package com.example.vital
+package com.example.vitalapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.fitness.Fitness
-import com.google.android.gms.fitness.FitnessOptions
-import com.google.android.gms.fitness.data.DataType
-import com.google.android.gms.fitness.data.Field
+import androidx.appcompat.app.AppCompatActivity
+import com.example.vitalapp.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : AppCompatActivity() {
 
-    // UI components for displaying progress and fitness data
-    private lateinit var progress: ProgressBar
-    private lateinit var textSteps: TextView
-    private lateinit var textCalories: TextView
-    private lateinit var textDistance: TextView
-    private lateinit var textActiveMinutes: TextView
-
-    // Define which fitness data types to access from Google Fit
-    private val fitnessOptions = FitnessOptions.builder()
-        .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
-        .addDataType(DataType.TYPE_CALORIES_EXPENDED, FitnessOptions.ACCESS_READ)
-        .addDataType(DataType.TYPE_DISTANCE_DELTA, FitnessOptions.ACCESS_READ)
-        .addDataType(DataType.TYPE_MOVE_MINUTES, FitnessOptions.ACCESS_READ)
-        .build()
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialize UI elements
-        progress = findViewById(R.id.progress)
-        textSteps = findViewById(R.id.textSteps)
-        textCalories = findViewById(R.id.textCalories)
-        textDistance = findViewById(R.id.textDistance)
-        textActiveMinutes = findViewById(R.id.textActiveMinutes)
-
-        // Button to navigate to Meals screen
-        findViewById<Button>(R.id.btnGoMeals).setOnClickListener {
-            startActivity(Intent(this, MealsActivity::class.java))
+        // Dashboard cards
+        binding.cardSleep.setOnClickListener {
+            startActivity(Intent(this, SleepTrackingActivity::class.java))
         }
 
-        // Button to navigate to Profile screen
-        findViewById<Button>(R.id.btnGoProfile).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+        binding.cardStress.setOnClickListener {
+            startActivity(Intent(this, StressMonitoringActivity::class.java))
         }
 
-        // Fetch today's Google Fit metrics
-        fetchTodayMetrics()
+        binding.cardEnergy.setOnClickListener {
+            startActivity(Intent(this, EnergyScoreActivity::class.java))
+        }
 
-        // Setup bottom navigation bar
-        val bottom = findViewById<BottomNavigationView>(R.id.bottomNav)
-        bottom.selectedItemId = R.id.nav_home  // Highlight current tab
-        bottom.setOnItemSelectedListener { item ->
+        binding.cardFitness.setOnClickListener {
+            startActivity(Intent(this, FitnessProgramsActivity::class.java))
+        }
+
+        binding.cardTogether.setOnClickListener {
+            startActivity(Intent(this, TogetherActivity::class.java))
+        }
+
+        // Bottom navigation setup
+        val bottomNav: BottomNavigationView = binding.bottomNavigation
+        bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> true // Stay on current screen
-                R.id.nav_profile -> { startActivity(Intent(this, ProfileActivity::class.java)); true }
-                R.id.nav_meals -> { startActivity(Intent(this, MealsActivity::class.java)); true }
-                R.id.nav_fitness -> { startActivity(Intent(this, FitnessActivity::class.java)); true }
+                R.id.nav_home -> true // Already on home
+                R.id.nav_fitness -> {
+                    startActivity(Intent(this, FitnessProgramsActivity::class.java))
+                    true
+                }
+                R.id.nav_challenges -> {
+                    startActivity(Intent(this, ChallengesActivity::class.java))
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
                 else -> false
             }
         }
-    }
-
-    // Function to retrieve today's activity metrics from Google Fit
-    private fun fetchTodayMetrics() {
-        val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
-
-        // Check if app has permission to access Google Fit data
-        if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-            textSteps.text = getString(R.string.steps_connect)
-            textCalories.text = getString(R.string.calories_burned_connect)
-            textDistance.text = getString(R.string.distance_connect)
-            textActiveMinutes.text = getString(R.string.active_minutes_connect)
-            return
-        }
-
-        setLoading(true)
-
-        // Retrieve daily step count
-        Fitness.getHistoryClient(this, account)
-            .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
-            .addOnSuccessListener { result ->
-                val steps = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_STEPS).asInt() else 0
-                textSteps.text = getString(R.string.steps_format, steps)
-            }
-            .addOnFailureListener { textSteps.text = getString(R.string.steps_unavailable) }
-
-        // Retrieve daily calories burned
-        Fitness.getHistoryClient(this, account)
-            .readDailyTotal(DataType.TYPE_CALORIES_EXPENDED)
-            .addOnSuccessListener { result ->
-                val kcal = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_CALORIES).asFloat().toInt() else 0
-                textCalories.text = getString(R.string.calories_burned_format, kcal)
-            }
-            .addOnFailureListener { textCalories.text = getString(R.string.calories_burned_unavailable) }
-
-        // Retrieve daily distance covered
-        Fitness.getHistoryClient(this, account)
-            .readDailyTotal(DataType.TYPE_DISTANCE_DELTA)
-            .addOnSuccessListener { result ->
-                val meters = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_DISTANCE).asFloat() else 0f
-                val km = meters / 1000f
-                textDistance.text = getString(R.string.distance_format, km)
-            }
-            .addOnFailureListener { textDistance.text = getString(R.string.distance_unavailable) }
-
-        // Retrieve daily active minutes
-        Fitness.getHistoryClient(this, account)
-            .readDailyTotal(DataType.TYPE_MOVE_MINUTES)
-            .addOnSuccessListener { result ->
-                val minutes = if (!result.isEmpty) result.dataPoints.first().getValue(Field.FIELD_DURATION).asInt() else 0
-                textActiveMinutes.text = getString(R.string.active_minutes_format, minutes)
-                setLoading(false)
-            }
-            .addOnFailureListener {
-                textActiveMinutes.text = getString(R.string.active_minutes_unavailable)
-                setLoading(false)
-            }
-    }
-
-    // Show or hide progress bar while loading data
-    private fun setLoading(loading: Boolean) {
-        progress.visibility = if (loading) View.VISIBLE else View.INVISIBLE
     }
 }

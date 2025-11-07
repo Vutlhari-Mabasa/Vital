@@ -18,28 +18,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vital">
         <activity
+            android:name=".TogetherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChallengesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FitnessProgramsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="vital.example.com" android:pathPrefix="/auth" />
+
+                <data
+                    android:host="vital.example.com"
+                    android:pathPrefix="/auth"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
-
         <activity
             android:name=".MealsActivity"
             android:exported="false" />
-
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
